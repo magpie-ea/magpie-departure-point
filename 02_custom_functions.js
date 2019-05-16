@@ -49,6 +49,25 @@ const time_limit = function(data, next) {
     next();
 };
 
+function check_response(data, next) {
+    data.response_checked = false;
+    $("body").on("keydown", function(e) {
+        if (data.response_checked == false) {
+            const keyPressed = String.fromCharCode(
+                e.which
+            ).toLowerCase();
+            if (keyPressed == data.key1 || keyPressed == data.key2) {
+                if (data[keyPressed] === data.correct) {
+                    alert('Your answer is correct! Yey!');
+                } else {
+                    alert('Sorry, this answer is incorrect :( The correct answer was ' + data.correct);
+                }
+                data.response_checked = true;
+                next();
+            }
+        }})
+}
+
 
 // Declare your hooks here
 
